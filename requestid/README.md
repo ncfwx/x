@@ -11,9 +11,9 @@ import (
 在 goroutine 中使用示例
 ```go
 go func() {
-    requestid.Set("my-request-id")
-    defer requestid.Delete()
-    
-    requestid.Get()
+	requestid.Set("my-request-id")
+	defer requestid.Delete()
+
+	requestid.Get()
 }()
 ```
