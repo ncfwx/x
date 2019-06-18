@@ -8,6 +8,7 @@ import (
 ```
 
 一般会在 http 的 middleware 中Set，在 logger 中 Get
+
 在 goroutine 中使用示例
 ```go
 go func() {
