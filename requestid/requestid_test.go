@@ -13,7 +13,7 @@ func TestSetGet(t *testing.T) {
 		0.1234,
 		0,
 		-1,
-		123456,
+		1111111111,
 	}
 
 	var wg sync.WaitGroup
@@ -23,11 +23,13 @@ func TestSetGet(t *testing.T) {
 			Set(v)
 			defer Delete()
 
-			got := Get()
-			if v != got {
-				t.Errorf("get requestid failed. got:%v, want:%v", got, v)
-			}
-			t.Logf("set requestid:%v", v)
+			func(v interface{}) {
+				got := Get()
+				if v != got {
+					t.Errorf("get requestid failed. got:%v, want:%v", got, v)
+				}
+				t.Logf("set requestid:%v", v)
+			}(v)
 			wg.Done()
 		}(v)
 	}
@@ -43,10 +45,12 @@ func TestConcurrency(t *testing.T) {
 			Set(v)
 			defer Delete()
 
-			got := Get()
-			if v != got {
-				t.Errorf("get requestid failed. got:%v, want:%v", got, v)
-			}
+			func(v interface{}) {
+				got := Get()
+				if v != got {
+					t.Errorf("get requestid failed. got:%v, want:%v", got, v)
+				}
+			}(v)
 			wg.Done()
 		}(i)
 	}
