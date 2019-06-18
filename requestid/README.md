@@ -15,7 +15,9 @@ go func() {
 	requestid.Set("my-request-id")
 	defer requestid.Delete()
 
-	requestid.Get()
+    func() {
+        requestid.Get()
+    }()
 }()
 ```
 
